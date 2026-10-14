@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML5 Multimedia Gallery | Audio &amp; Video Player</title>
+  <meta name="description" content="A complete responsive HTML5 Audio and Video multimedia gallery with custom playback controls.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Navigation / Application Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">OmniMedia Studio</h1>
+          <p class="brand-subtitle">HTML5 Audio &amp; Video Multimedia Gallery</p>
+        </div>
+      </div>
+      <div class="header-status">
+        <span class="status-indicator" id="status-pill">
+          <span class="status-dot"></span>
+          <span id="status-text">Ready</span>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <main class="main-layout">
+    
+    <!-- Left Column: Primary Media Theater & Custom Controls -->
+    <section class="player-column" aria-label="Media Player Deck">
+      
+      <!-- Player Header Card -->
+      <div class="now-playing-banner">
+        <div class="media-meta">
+          <span class="badge" id="now-playing-type">Video</span>
+          <h2 class="media-title" id="now-playing-title">Select a media item to begin</h2>
+          <p class="media-author" id="now-playing-author">Front End Multimedia Gallery</p>
+        </div>
+        <div class="media-actions">
+          <span class="file-path-tag" id="now-playing-file">assets/videos/video1.mp4</span>
+        </div>
+      </div>
+
+      <!-- Alert / Status Notice Banner (Graceful Error & Dummy File Handling) -->
+      <div class="notice-banner hidden" id="notice-banner" role="alert" aria-live="polite">
+        <div class="notice-icon" aria-hidden="true">ℹ️</div>
+        <div class="notice-content">
+          <strong id="notice-title">Dummy Placeholder File</strong>
+          <p id="notice-message">This media item uses a dummy placeholder. Replace the file in the <code>assets/</code> folder to stream your own video or audio.</p>
+        </div>
+        <button type="button" class="notice-close-btn" id="notice-close-btn" aria-label="Dismiss notice">&times;</button>
+      </div>
+
+      <!-- Unified Display Stage -->
+      <div class="player-stage-wrapper">
+        
+        <!-- Video Player Stage (Shown when a video item is selected) -->
+        <div class="video-stage" id="video-stage">
+          <div class="video-container" id="video-container">
+            <!-- Native HTML5 Video Element (Shared) -->
+            <video 
+              id="shared-video" 
+              preload="metadata" 
+              playsinline
+              aria-label="HTML5 Video Player">
+              <p>Your browser does not support the HTML5 Video element.</p>
+            </video>
+            
+            <!-- Video Overlay Play Button (Big Center Button) -->
+            <button type="button" class="video-center-btn" id="video-center-play" aria-label="Play or pause video">
+              <svg class="icon-play" width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              <svg class="icon-pause hidden" width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="6" y="4" width="4" height="16"></rect>
+                <rect x="14" y="4" width="4" height="16"></rect>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Audio Player Stage (Shown when an audio item is selected) -->
+        <div class="audio-stage hidden" id="audio-stage">
+          <!-- Native HTML5 Audio Element (Shared) -->
+          <audio 
+            id="shared-audio" 
+            preload="metadata" 
+            aria-label="HTML5 Audio Player">
+            <p>Your browser does not support the HTML5 Audio element.</p>
+          </audio>
+
+          <div class="audio-card">
+            <!-- Vinyl / Album Cover Artwork -->
+            <div class="vinyl-record-wrap" id="vinyl-wrapper">
+              <div class="vinyl-disc" id="vinyl-disc"></div>
+              <img 
+                src="assets/images/audio1_cover.svg" 
+                alt="Audio Album Cover" 
+                class="album-cover" 
+                id="audio-album-cover">
+            </div>
+
+            <!-- Track Info & Animated Waveform -->
+            <div class="audio-details">
+              <span class="audio-category-pill" id="audio-category-pill">Acoustic / Instrumental</span>
+              <h3 class="audio-track-title" id="audio-track-title">Morning Acoustic Serenade</h3>
+              <p class="audio-track-artist" id="audio-track-artist">Horizon Strings</p>
+              
+              <!-- CSS Animated Sound Bars -->
+              <div class="sound-wave-bars" id="sound-wave-bars" aria-hidden="true">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Custom Unified Playback Control Deck -->
+      <div class="controls-deck" role="region" aria-label="Playback Controls">
+        
+        <!-- Progress Bar & Scrubbing Slider -->
+        <div class="progress-container">
+          <input 
+            type="range" 
+            class="seek-slider" 
+            id="seek-slider" 
+            min="0" 
+            max="100" 
+            value="0" 
+            step="0.1" 
+            aria-label="Seek progress bar">
+          <div class="time-display">
+            <span id="current-time">00:00</span>
+            <span class="time-separator">/</span>
+            <span id="total-duration">00:00</span>
+          </div>
+        </div>
+
+        <!-- Controls Toolbar Row -->
+        <div class="controls-toolbar">
+          
+          <!-- Left: Playback Action Buttons -->
+          <div class="controls-group playback-group">
+            <!-- Skip -10s -->
+            <button type="button" class="control-btn" id="btn-skip-backward" title="Rewind 10 seconds" aria-label="Rewind 10 seconds">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M11 17l-5-5 5-5M18 17l-5-5 5-5"/>
+              </svg>
+              <span class="btn-micro-label">10s</span>
+            </button>
+
+            <!-- Main Play / Pause -->
+            <button type="button" class="control-btn btn-primary-play" id="btn-play-pause" title="Play or Pause" aria-label="Play">
+              <svg class="icon-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              <svg class="icon-pause hidden" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="6" y="4" width="4" height="16"></rect>
+                <rect x="14" y="4" width="4" height="16"></rect>
+              </svg>
+            </button>
+
+            <!-- Stop Button -->
+            <button type="button" class="control-btn" id="btn-stop" title="Stop playback" aria-label="Stop">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="5" y="5" width="14" height="14" rx="2"></rect>
+              </svg>
+            </button>
+
+            <!-- Skip +10s -->
+            <button type="button" class="control-btn" id="btn-skip-forward" title="Forward 10 seconds" aria-label="Forward 10 seconds">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M13 17l5-5-5-5M6 17l5-5-5-5"/>
+              </svg>
+              <span class="btn-micro-label">10s</span>
+            </button>
+          </div>
+
+          <!-- Middle: Volume & Mute Controls -->
+          <div class="controls-group volume-group">
+            <button type="button" class="control-btn" id="btn-mute-unmute" title="Mute or Unmute" aria-label="Mute">
+              <!-- Volume High Icon -->
+              <svg class="icon-vol-high" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+              <!-- Volume Muted Icon -->
+              <svg class="icon-vol-mute hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 5"></polygon>
+                <line x1="23" y1="9" x2="17" y2="15"></line>
+                <line x1="17" y1="9" x2="23" y2="15"></line>
+              </svg>
+            </button>
+            <input 
+              type="range" 
+              class="volume-slider" 
+              id="volume-slider" 
+              min="0" 
+              max="1" 
+              step="0.05" 
+              value="1" 
+              aria-label="Volume Slider">
+            <span class="volume-val-text" id="volume-val-text">100%</span>
+          </div>
+
+          <!-- Right: Playback Speed & Fullscreen -->
+          <div class="controls-group extra-group">
+            <div class="speed-selector-wrap">
+              <label for="speed-select" class="sr-only">Playback Speed</label>
+              <select id="speed-select" class="speed-select" title="Playback speed">
+                <option value="0.5">0.5×</option>
+                <option value="0.75">0.75×</option>
+                <option value="1" selected>1.0×</option>
+                <option value="1.25">1.25×</option>
+                <option value="1.5">1.5×</option>
+                <option value="2">2.0×</option>
+              </select>
+            </div>
+
+            <!-- Fullscreen Button (Video only) -->
+            <button type="button" class="control-btn" id="btn-fullscreen" title="Toggle Fullscreen" aria-label="Toggle Fullscreen">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+              </svg>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- HTML5 Media API Live Diagnostics Card (Great for Practical Assignment Demonstration!) -->
+      <details class="api-inspector-card">
+        <summary class="api-inspector-summary">
+          <span class="summary-left">
+            <span class="dot-live"></span>
+            <strong>HTML5 Media API Live Inspector</strong>
+          </span>
+          <span class="summary-hint">Click to inspect active media properties</span>
+        </summary>
+        <div class="api-inspector-grid">
+          <div class="inspector-item">
+            <span class="prop-name">Active Element:</span>
+            <span class="prop-val" id="insp-element">&lt;video&gt;</span>
+          </div>
+          <div class="inspector-item">
+            <span class="prop-name">Playback State:</span>
+            <span class="prop-val" id="insp-state">Paused</span>
+          </div>
+          <div class="inspector-item">
+            <span class="prop-name">Current Time:</span>
+            <span class="prop-val" id="insp-current-time">0.00s</span>
+          </div>
+          <div class="inspector-item">
+            <span class="prop-name">Duration:</span>
+            <span class="prop-val" id="insp-duration">0.00s</span>
+          </div>
+          <div class="inspector-item">
+            <span class="prop-name">Volume / Muted:</span>
+            <span class="prop-val" id="insp-volume">100% (Unmuted)</span>
+          </div>
+          <div class="inspector-item">
+            <span class="prop-name">Ready State:</span>
+            <span class="prop-val" id="insp-ready-state">HAVE_NOTHING (0)</span>
+          </div>
+          <div class="inspector-item">
+            <span class="prop-name">Network State:</span>
+            <span class="prop-val" id="insp-network-state">NETWORK_EMPTY (0)</span>
+          </div>
+          <div class="inspector-item">
+            <span class="prop-name">Playback Rate:</span>
+            <span class="prop-val" id="insp-rate">1.0×</span>
+          </div>
+        </div>
+      </details>
+
+    </section>
+
+    <!-- Right Column: Gallery Library Browser -->
+    <aside class="gallery-column" aria-label="Media Library">
+      
+      <div class="gallery-header">
+        <div class="gallery-title-wrap">
+          <h2 class="gallery-title">Media Library</h2>
+          <span class="gallery-count" id="gallery-count">4 Items</span>
+        </div>
+        
+        <!-- Filter Tabs -->
+        <nav class="filter-tabs" aria-label="Filter media items">
+          <button type="button" class="tab-btn active" data-filter="all">All</button>
+          <button type="button" class="tab-btn" data-filter="video">Videos (2)</button>
+          <button type="button" class="tab-btn" data-filter="audio">Audio (2)</button>
+        </nav>
+      </div>
+
+      <!-- Gallery Grid Container -->
+      <div class="gallery-grid" id="gallery-grid">
+        <!-- Rendered dynamically by script.js -->
+      </div>
+
+      <!-- Quick Setup Instructions Card -->
+      <div class="setup-guide-card">
+        <h3><span class="guide-icon">📂</span> Media Assets Setup</h3>
+        <p>To use your own local audio and video files, simply place them into the respective folder:</p>
+        <ul class="setup-list">
+          <li><code>assets/videos/video1.mp4</code></li>
+          <li><code>assets/videos/video2.mp4</code></li>
+          <li><code>assets/audio/audio1.mp3</code></li>
+          <li><code>assets/audio/audio2.mp3</code></li>
+        </ul>
+        <p class="setup-tip">Tip: Standard MP4 (H.264 / AAC) and MP3/WAV files ensure 100% browser compatibility.</p>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <!-- Application Footer -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <p>Front End Design Practical &bull; HTML5 Multimedia Gallery &bull; Vanilla JavaScript &amp; CSS3</p>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript File -->
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML5 Multimedia Gallery</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <h1>Multimedia Gallery</h1>
+    <p>Responsive Audio &amp; Video Player using HTML5 Media API</p>
+  </header>
+
+  <main class="container">
+    <!-- Active Media Player Section -->
+    <section class="player-section">
+      <div class="player-info">
+        <h2 id="media-title">Nature Exploration</h2>
+        <span id="media-type" class="badge">Video</span>
+      </div>
+
+      <!-- Video Player Display -->
+      <div id="video-box" class="media-display">
+        <video id="video-element" poster="assets/images/video1_thumb.svg" playsinline></video>
+      </div>
+
+      <!-- Audio Player Display -->
+      <div id="audio-box" class="media-display audio-display hidden">
+        <img id="audio-cover" src="assets/images/audio1_cover.svg" alt="Album Cover">
+        <audio id="audio-element"></audio>
+      </div>
+
+      <!-- Playback Error / Placeholder Message -->
+      <div id="status-msg" class="status-msg hidden"></div>
+
+      <!-- Unified Custom Playback Controls -->
+      <div class="controls">
+        <button type="button" id="play-btn">Play</button>
+        <button type="button" id="stop-btn">Stop</button>
+
+        <!-- Seek / Progress Bar -->
+        <div class="seek-group">
+          <input type="range" id="seek-bar" min="0" max="100" value="0" step="0.1">
+          <span id="time-display">00:00 / 00:00</span>
+        </div>
+
+        <!-- Volume & Mute Controls -->
+        <div class="volume-group">
+          <button type="button" id="mute-btn">Mute</button>
+          <input type="range" id="volume-bar" min="0" max="1" step="0.05" value="1">
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+      <h2>Media Library</h2>
+      
+      <!-- Video Section -->
+      <h3>Videos</h3>
+      <div class="gallery-grid" id="video-grid"></div>
+
+      <!-- Audio Section -->
+      <h3>Audio Tracks</h3>
+      <div class="gallery-grid" id="audio-grid"></div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Front End Web Practical Assignment &bull; HTML5, CSS3 &amp; Vanilla JavaScript</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

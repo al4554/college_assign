@@ -1,0 +1,261 @@
+/* Basic Reset & Font */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #0f172a;
+  color: #f8fafc;
+  line-height: 1.6;
+  padding-bottom: 2rem;
+}
+
+/* Header */
+.header {
+  background-color: #1e293b;
+  text-align: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #334155;
+}
+
+.header h1 {
+  font-size: 1.8rem;
+  color: #38bdf8;
+}
+
+.header p {
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+/* Main Container Layout */
+.container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* Player Section */
+.player-section {
+  background-color: #1e293b;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  margin-bottom: 2.5rem;
+}
+
+.player-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.badge {
+  background-color: #0284c7;
+  color: #fff;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* Media Displays */
+.media-display {
+  width: 100%;
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+#video-box video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+}
+
+.audio-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: #0f172a;
+  min-height: 250px;
+}
+
+#audio-cover {
+  width: 180px;
+  height: 180px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Status message */
+.status-msg {
+  background-color: #78350f;
+  color: #fef3c7;
+  padding: 0.6rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+/* Custom Controls Deck */
+.controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  background: #0f172a;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+}
+
+.controls button {
+  background-color: #38bdf8;
+  color: #0f172a;
+  border: none;
+  padding: 0.45rem 0.9rem;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.controls button:hover {
+  background-color: #7dd3fc;
+}
+
+.seek-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 200px;
+}
+
+.seek-group input[type="range"] {
+  flex: 1;
+  cursor: pointer;
+}
+
+#time-display {
+  font-size: 0.85rem;
+  color: #cbd5e1;
+  min-width: 85px;
+}
+
+.volume-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.volume-group input[type="range"] {
+  width: 80px;
+  cursor: pointer;
+}
+
+/* Gallery Section */
+.gallery-section h2 {
+  border-bottom: 2px solid #334155;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  color: #f1f5f9;
+}
+
+.gallery-section h3 {
+  margin: 1rem 0 0.5rem;
+  color: #38bdf8;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.card {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: #38bdf8;
+}
+
+.card.active {
+  border-color: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+}
+
+.card img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+.card-content {
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-content h4 {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-content button {
+  margin-top: auto;
+  background-color: #334155;
+  color: #f8fafc;
+  border: none;
+  padding: 0.4rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.card.active .card-content button,
+.card-content button:hover {
+  background-color: #0284c7;
+  color: #fff;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  color: #64748b;
+  font-size: 0.85rem;
+  margin-top: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .seek-group, .volume-group {
+    width: 100%;
+  }
+}
